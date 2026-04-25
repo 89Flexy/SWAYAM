@@ -682,7 +682,9 @@ body {
     <h3>Leader</h3>
     <p>Born to lead, not follow</p>
   </div>
-    <hr>
+  <br>
+  <br>
+  
   <div class="quiz-container">
 <h3>Special Gift 🎁🔑 Password Quiz</h3>
 <br>
@@ -976,8 +978,10 @@ input{
   border-radius: 12px;
 }
   </style>
-    <hr>
+    <br>
+
   <br>
+  <hr>
 <section class="special-msg">
   <div class="msg-box">
     <h3>💖 Special Message 💖</h3>
@@ -992,6 +996,7 @@ input{
 
   </div>
 </section>
+<hr>
 <div class="gift-section">
   <button id="giftBtn">🎁 Special Gift</button>
 
@@ -1017,7 +1022,24 @@ input{
 
     <button class="nav-btn next" onclick="nextSlide()">❯</button>
   </div>
+<audio id="giftSound" src="https://raw.githubusercontent.com/89Flexy/SWAYAM/56af3ec1b251567321ced3cc99a2e29f4072a976/ahh-sound-effect-128-ytshorts.savetube.me.mp3"></audio>
+<script>
+    function checkPassword() {
+  const pass = document.getElementById("giftPassword").value;
 
+  if(pass === "1234") {
+    passwordBox.style.display = "none";
+    gallery.style.display = "flex";
+
+    // 🎉 PLAY AUDIO ON UNLOCK
+    let sound = document.getElementById("giftSound");
+    sound.play();
+
+  } else {
+    alert("Wrong Password ❌");
+  }
+}
+</script>
   <!-- TEXT -->
   <div class="gift-text">
     Looking Good hnnn🙄🫣❤️
