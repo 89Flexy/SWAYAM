@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Abhi-89</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root{
+  --bg:#0f0a0a;
+  --panel:#1a0f0f;
+  --muted:#ffd1d1;
+
+  /* RED ACCENTS */
+  --accent1:#ff2e2e;
+  --accent2:#ff6b6b;
+
+  --soft-card: rgba(255,46,46,0.12);
+  --glass: rgba(255,255,255,0.05);
+  --shadow: 0 10px 30px rgba(255,46,46,0.25);
+}
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: radial-gradient(1200px 600px at 10% 10%, rgba(168,85,247,0.06), transparent 8%),
+                radial-gradient(800px 400px at 90% 90%, rgba(236,72,153,0.04), transparent 10%),
+                var(--bg);
+    color:var(--muted);
+    overflow-x:hidden;
+    scroll-behavior:smooth;
+    padding-bottom:80px;
+    padding-top: 70px; /* Account for fixed nav height (Adjusted in media queries for mobile) */
+  }
+  
+  /* --- CLOUD/PARTICLE EFFECT STYLES --- */
+  #animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; 
+    pointer-events: none; 
+    overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    opacity: 0;
+    animation: cloud-fly linear infinite;
+    will-change: transform, opacity; 
+  }
+
+  @keyframes cloud-fly {
+    0% {
+      opacity: 0;
+      transform: translateX(-10vw) translateY(0) scale(1) rotate(0deg);
+    }
+    10% {
+      opacity: 0.8; 
+    }
+    90% {
+      opacity: 0.8; 
+    }
+    100% {
+      opacity: 0; 
+      transform: translateX(110vw) translateY(20vh) scale(1.3) rotate(180deg);
+    }
+  }
+
+  nav, main, footer, .modal {
+    z-index: 1000;
+    position: relative; 
+  }
+  /* --- END CLOUD STYLES --- */
+
+  /* --- NAVIGATION BAR MODIFICATION --- */
+  nav{
+    position: fixed; 
+    left:0;
+    right:0;
+    top:0; 
+    margin:0; 
+    z-index:1200;
+    display:flex;justify-content:center;gap:1.2rem;padding:8px 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+    border-radius:0 0 40px 40px; 
+    backdrop-filter: blur(8px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    max-width: 100%; 
+    width: 100%;
+    box-sizing: border-box;
+    /* Mobile improvement: Added padding-bottom for extra space when nav wraps */
+    padding-bottom: 12px; 
+  }
+  nav a{
+    color:var(--muted);text-decoration:none;
+    padding:8px 14px;border-radius:28px;
+    display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:0.95rem;
+    transition:all .25s ease;
+    flex-shrink: 0;
+    /* Mobile improvement: Ensure minimum size for touch */
+    min-height: 44px; 
+    min-width: 44px;
+  }
+  nav a.active,
+  nav a:hover{
+    background: linear-gradient(90deg,var(--accent1),var(--accent2));
+    color:#fff;transform:translateY(-3px);
+    box-shadow:0 8px 30px rgba(168,85,247,0.18);
+  }
+
+  main{max-width:1180px;margin:0 auto;padding:0 20px 40px} 
+  section{margin-bottom:5.2rem;border-radius:18px;padding:28px 18px;position:relative}
+  section.inner{background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);padding:38px;border-radius:18px;position:relative}
+
+  .hero{display:flex;gap:3.2rem;align-items:center;justify-content:center;flex-wrap:wrap;
+        padding:46px 18px;background:linear-gradient(180deg,rgba(168,85,247,0.02),rgba(236,72,153,0.01));
+        box-shadow:var(--shadow)}
+  .hero-left{min-width:260px;max-width:420px;flex:1;text-align:center}
+  .hero-right{
+    flex:1;min-width:300px;max-width:620px;
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start; 
+  }
+  .hero img{
+  width:320px;
+  height:320px;
+  border-radius:50%;
+  object-fit:cover;
+
+  /* BLUE BORDER */
+  border:6px solid #2563eb;
+
+  /* BLUE GLOW SHADOW */
+  box-shadow: 0 0 25px rgba(37,99,235,0.6),
+              0 0 60px rgba(56,189,248,0.35);
+
+  animation:float 6s ease-in-out infinite alternate;
+}
+  @keyframes float{to{transform:translateY(-18px)}}
+  .hero-name{font-size:2.8rem;font-weight:800;
+             background:linear-gradient(90deg,var(--accent1),var(--accent2));
+             -webkit-background-clip:text;-webkit-text-fill-color:transparent;} 
+  
+  .hero-actions {
+    display: flex;
+    align-items: center; 
+    gap: 1.5rem; 
+    margin-bottom: 25px; 
+    margin-top: 10px; 
+  }
+  .hero-role{
+    display:inline-block;padding:8px 20px;border-radius:28px;
+    background:rgba(168,85,247,0.12);color:var(--accent1);font-weight:700;
+    margin-bottom:0; 
+  }
+  
+  /* Social Icons Added in Hero Section */
+  .hero-social {
+    display: flex;
+    gap: 1.2rem;
+    justify-content: flex-start; 
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .hero-social a {
+    font-size: 2.2rem;
+    transition: transform 0.2s ease;
+    color: inherit;
+  }
+  .hero-social a:hover {
+    transform: translateY(-4px);
+  }
+  .hero-social .fa-youtube {color: #ff0000;}
+  .hero-social .fa-discord {color: #5865f2;}
+  .hero-social .fa-spotify {color: #1db954;}
+  .hero-social .fa-instagram {color: #e4405f;}
+
+  /* --- NEW HERO STATS --- */
+  .hero-stats {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+  }
+  .hero-stats a {
+    text-decoration: none;
+  }
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #fff;
+    background: rgba(255,255,255,0.05);
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.04);
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  .stat-item:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.1);
+  }
+  .stat-item i {
+    font-size: 1.4rem;
+  }
+  .stat-item .fa-youtube { color: #ff0000; }
+  .stat-item .fa-instagram { color: #e4405f; }
+  /* --- END HERO STATS --- */
+
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;border-radius:30px;
+       text-decoration:none;font-weight:700;background:linear-gradient(90deg,var(--accent1),var(--accent2));
+       color:#fff;box-shadow:0 10px 30px rgba(168,85,247,0.15)}
+
+  /* --- MODIFIED WORK BUTTON (Mobile Optimized) --- */
+  .hero-work-btn {
+    position: absolute;
+    right: 38px;
+    bottom: 38px;
+    z-index: 10;
+    /* New glass style */
+    background: var(--glass);
+    border: 1px solid var(--accent1);
+    color: var(--accent1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+  }
+  .hero-work-btn:hover {
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    color: #fff;
+    border-color: transparent;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(168,85,247,0.25);
+  }
+
+  .about-inner{display:flex;flex-direction:column;gap:26px;align-items:center;text-align:center;padding:36px}
+  .about-badge{display:inline-block;padding:10px 20px;border-radius:30px;background:rgba(168,85,247,0.12);
+               color:var(--accent1);font-weight:700}
+  .about-tags{color:var(--accent2);font-weight:600}
+  .about-welcome{max-width:900px;font-size:1.05rem;line-height:1.85;color:var(--muted);
+                 background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);
+                 padding:18px;border-radius:14px;border:1px solid rgba(255,255,255,0.02)}
+
+  .about-cards{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;width:100%;padding-top:6px}
+  .card{width:300px;background:var(--soft-card);padding:22px;border-radius:18px;
+        box-shadow:0 8px 30px rgba(0,0,0,0.45);border:1px solid rgba(168,85,247,0.09);
+        transition:transform .35s ease,box-shadow .35s ease}
+  .card:hover{transform:translateY(-12px);box-shadow:0 22px 50px rgba(168,85,247,0.12)}
+  .card i{font-size:30px;color:var(--accent2);margin-bottom:12px}
+  .card h3{font-size:1.2rem;margin-bottom:6px;color:#fff}
+  .card p{font-size:0.95rem;color:var(--muted)}
+
+  .social-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+  .social-item{text-align:center;padding:18px;background:var(--glass);border-radius:14px;border:1px solid rgba(255,255,255,0.02)}
+  .social-icon{width:84px;height:84px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+               margin-bottom:12px;font-size:30px;color:#fff}
+  .yt{background:#ff0000}.dc{background:#5865f2}.ig{background:#e4405f}.sp{background:#1db954}
+  .social-item p{font-weight:700;color:var(--muted)}
+
+  /* --- FEATURED CONTENT STYLES --- */
+  .featured-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px; 
+    flex-wrap: wrap;
+    margin-top: 30px;
+  }
+
+  .content-card {
+    background: var(--soft-card);
+    padding: 15px;
+    border-radius: 18px;
+    width: 100%;
+    max-width: 250px; 
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+    border: 1px solid rgba(168,85,247,0.09);
+    transition: transform .35s ease, box-shadow .35s ease;
+  }
+
+  .content-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(168,85,247,0.15);
+  }
+
+  .content-thumbnail {
+    position: relative;
+    width: 100%;
+    padding-top: 177.77%; 
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    border: 3px solid rgba(236,72,153,0.1);
+  }
+
+  .content-thumbnail img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+  }
+
+  .content-card h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 15px;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+  }
+
+  .featured-btn{
+    display:inline-flex;align-items:center;gap:10px;padding:10px 20px;border-radius:30px;
+    background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#fff;
+    text-decoration:none;font-weight:700;box-shadow:0 10px 30px rgba(168,85,247,0.15);
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .featured-btn:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(168,85,247,0.20);}
+
+  /* --- END FEATURED CONTENT STYLES --- */
+
+  .contact-cta{display:inline-flex;gap:12px;align-items:center;padding:14px 22px;border-radius:999px;
+               background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#fff;text-decoration:none;font-weight:700}
+  footer{margin-top:24px;padding:28px;text-align:center;
+          background:linear-gradient(90deg,rgba(168,85,247,0.06),rgba(236,72,153,0.03));
+          color:#fff;font-weight:600;border-radius:12px}
+
+  .reveal{opacity:0;transform:translateY(30px) scale(.995);transition:all .9s cubic-bezier(.16,.84,.32,1)}
+  .reveal.show{opacity:1;transform:none}
+
+  .faq-item{border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:10px;overflow:hidden}
+  .faq-question{cursor:pointer;padding:1em;font-weight:600;
+                display:flex;justify-content:space-between;align-items:center;
+                transition:background 0.3s}
+  .faq-question:hover{background:rgba(255,255,255,0.04)}
+  .faq-answer{max-height:0;overflow:hidden;opacity:0;padding:0 1em;
+              transition:max-height 0.45s ease,opacity 0.45s ease,padding 0.3s ease}
+  .faq-item.active .faq-answer{max-height:300px;opacity:1;padding:1em}
+  .faq-item i{transition:transform 0.3s ease}
+  .faq-item.active i{transform:rotate(180deg);color:var(--accent1)}
+
+  /* --- MODAL STYLES --- */
+  .modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.75); display: none; z-index: 2000;
+    justify-content: center; align-items: center;
+  }
+  .modal-content {
+    background: var(--panel); padding: 30px; border-radius: 12px;
+    width: 90%; max-width: 450px; position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .modal-content h3 {
+    background: linear-gradient(90deg,var(--accent1),var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    font-size: 1.8rem; margin-bottom: 15px;
+  }
+  .modal-close {
+    position: absolute; top: 10px; right: 15px; font-size: 1.8rem;
+    color: var(--muted); cursor: pointer; transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--accent2); }
+  .modal-content label { display: block; margin-top: 10px; font-weight: 600; }
+  .modal-content input, .modal-content textarea {
+    width: 100%; padding: 10px; margin-top: 5px; border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.1); background: rgba(0, 0, 0, 0.2);
+    color: var(--muted);
+  }
+  .modal-content textarea { resize: vertical; height: 100px; }
+  .modal-content button {
+    margin-top: 20px; width: 100%;
+    display: block; text-align: center; border: none; cursor: pointer;
+  }
+  
+  /* --- START: Added styles for mobile/desktop stats swap --- */
+  .mobile-stats {
+    display: none; /* Hide mobile stats by default (on desktop) */
+  }
+  /* .desktop-stats is already visible by default via .hero-stats */
+  /* --- END: Added styles for mobile/desktop stats swap --- */
+  
+
+  /* Mobile adjustments (900px) */
+  @media(max-width:900px){
+  
+    /* --- START: Added styles for mobile/desktop stats swap --- */
+    .desktop-stats {
+      display: none; /* Hide desktop stats on mobile */
+    }
+    .mobile-stats {
+      display: flex; /* Show mobile stats */
+      justify-content: center;
+      width: 100%;
+      /* === ADJUSTED SPACING (was 1rem) === */
+      margin-top: 0.5rem; /* "0.5cm" gap below pfp */
+    }
+    /* --- END: Added styles for mobile/desktop stats swap --- */
+
+    .hero img{width:240px;height:240px}
+    .hero-right {
+      align-items: center; 
+      /* Mobile improvement: Center-align text/content */
+      text-align: center; 
+      /* === ADJUSTED SPACING (was 2rem) === */
+      padding-top: 1rem; /* "1cm" gap above name */
+    }
+    .hero-name {
+      text-align: center; 
+    }
+    .hero-actions {
+      justify-content: center;
+      flex-wrap: wrap; 
+    }
+    .hero-social {
+      justify-content: center; 
+    }
+    
+    /* Mobile improvement: Work button is now part of the flow, wider, and easier to tap */
+    .hero-work-btn {
+      position: relative; 
+      right: auto;
+      bottom: auto;
+      /* === ADJUSTED SPACING (was 1.5rem) === */
+      margin-top: 1.5rem; /* "1.5cm" gap below socials */
+      width: 80%; 
+      max-width: 300px;
+      justify-content: center;
+    }
+    
+    main { padding: 0 15px 40px; } 
+    
+    /* Mobile improvement: Better spacing for sections */
+    section.inner {
+      padding: 25px 20px;
+    }
+    
+    /* Mobile improvement: About cards stack vertically */
+    .about-cards {
+      flex-direction: column; 
+      align-items: center;
+    }
+    .card {
+      width: 100%; 
+      max-width: 350px;
+    }
+    
+    /* Ensure featured content cards still look good but can stack better */
+    .content-card {
+      max-width: 90%; 
+    }
+  }
+
+  /* Mobile nav fix (768px) */
+  @media (max-width: 768px) {
+    /* Mobile improvement: Slightly more space in nav */
+    nav {
+      gap: 0.8rem;
+      padding: 8px 10px; 
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 100vw; 
+      width: 100vw;
+      box-sizing: border-box;
+    }
+    nav a {
+      padding: 8px 10px;
+      font-size: 0.85rem;
+      gap: 4px;
+      white-space: nowrap;
+      flex-shrink: 1; 
+    }
+    /* Mobile improvement: Adjust for nav wrapping */
+    body { padding-top: 80px; } 
+    main { padding: 0 15px 40px; } 
+    footer { padding: 20px 15px; } /* Mobile improvement: Reduced footer padding */
+  }
+
+  /* Extra small phone adjustments (480px) */
+  @media (max-width: 480px) {
+    nav {
+      gap: 0.5rem;
+      padding: 6px 8px;
+    }
+    nav a {
+      padding: 6px 8px;
+      font-size: 0.8rem;
+      gap: 3px;
+    }
+    .hero-name { font-size: 2rem; }
+    .hero-actions { gap: 1rem; flex-direction: column; align-items: center; }
+    .hero-stats { gap: 0.8rem; flex-wrap: wrap; justify-content: center;}
+    .stat-item { padding: 5px 10px; font-size: 0.9rem; }
+    .hero-social a { font-size: 1.8rem; }
+    
+    .hero-left { 
+      min-width: 200px;
+      padding-bottom: 20px;
+    }
+    .hero img {
+      width: 200px;
+      height: 200px;
+    }
+    .hero img{
+  border:6px solid #ff2e2e;
+
+  box-shadow: 0 0 25px rgba(255,46,46,0.6),
+              0 0 60px rgba(255,100,100,0.35);
+}
+    /* Mobile improvement: Make buttons and CTAs larger/wider */
+    .btn {
+      padding: 14px 25px; 
+      font-size: 1rem;
+    }
+    .contact-cta {
+      width: 90%;
+      justify-content: center;
+    }
+    
+    .faq-question, .faq-answer {
+      font-size: 0.95rem; 
+    }
+  }
+  section {
+  scroll-margin-top: 52px; /* height of navbar */
+}
+
+.nav-title{
+  position: absolute;
+  left: 20px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}@media (max-width: 768px){
+  .nav-title{
+    position: static;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+}
+</style>
+</head>
+
+<body>
+  <div id="animated-bg">
+      <div class="particle" style="width: 80px; height: 80px; top: 10%; left: -10%; animation-duration: 40s; animation-delay: -15s;"></div>
+      <div class="particle" style="width: 120px; height: 120px; top: 70%; left: -20%; animation-duration: 55s; animation-delay: -30s;"></div>
+      <div class="particle" style="width: 50px; height: 50px; top: 45%; left: -5%; animation-duration: 30s; animation-delay: -5s;"></div>
+      <div class="particle" style="width: 150px; height: 150px; top: 20%; left: -30%; animation-duration: 70s; animation-delay: -50s;"></div>
+      <div class="particle" style="width: 90px; height: 90px; top: 85%; left: -15%; animation-duration: 45s; animation-delay: -20s;"></div>
+      <div class="particle" style="width: 60px; height: 60px; top: 5%; left: -15%; animation-duration: 35s; animation-delay: -10s;"></div>
+      <div class="particle" style="width: 100px; height: 100px; top: 90%; left: -5%; animation-duration: 60s; animation-delay: -40s;"></div>
+      <div class="particle" style="width: 40px; height: 40px; top: 30%; left: -25%; animation-duration: 48s; animation-delay: -25s;"></div>
+      <div class="particle" style="width: 130px; height: 130px; top: 60%; left: -35%; animation-duration: 75s; animation-delay: -65s;"></div>
+      <div class="particle" style="width: 75px; height: 75px; top: 15%; left: -5%; animation-duration: 50s; animation-delay: -35s;"></div>
+  </div>
+
+<nav>
+  <div class="nav-title"><h2>HAPPY BIRTHDAY BRO</h2> </div>🥳❤️🎉
+
+</nav>
+
+  <main>
+    <section id="home" class="reveal">
+  <div class="hero inner">
+  <div class="hero-left">
+    <img src="https://i.ibb.co/wFQJRhb3/file-00000000419072089712fbe0e0879b05.png" alt="anime.img">
+  </div>
+
+  <div class="hero-right">
+
+    <!-- NAME (VISIBLE ON ALL DEVICES) -->
+    <div class="hero-name"> Swayam Chavan</div>
+<br>
+
+    </section>
+  <style>
+  .hero-name {
+  font-size: 25px;
+  opacity: 0.8;
+  letter-spacing: 1px;
+}
+    .hero-social {
+  display: flex;
+  justify-content: center;   /* centers logos horizontally */
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  gap: 10px;
+    }
+  </style>
+    <!-- DESKTOP STATS -->
+    <div class="hero-stats desktop-stats">
+      <!-- add stats here later if you want -->
+    </div>
+
+    <!-- MOBILE STATS -->
+    <div class="hero-stats mobile-stats">
+      <!-- mobile-only stats -->
+    </div>
+
+  </div>
+</div>
+    </section>
+
+  
+  <style>
+    .hero-social {
+  display: flex;
+  justify-content: center;   /* centers logos horizontally */
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  gap: 20px;
+   
+  .faq-answer {
+  font-family: monospace;
+  white-space: pre-wrap;
+  transition: max-height 0.5s ease, opacity 0.4s ease;
+
+}
+
+  </style>
+  <br>
+
+    
+  </main>
+
+  <script>
+    // Reveal animation logic
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("show")}})
+    },{threshold:.15});
+    document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+
+    // FAQ logic
+    document.querySelectorAll(".faq-question").forEach(q=>{
+      q.addEventListener("click",()=>{
+        q.parentElement.classList.toggle("active");
+      })
+    });
+    
+    // Navigation functionality
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav a');
+
+    // Handle click events for smooth scroll and active state
+    navLinks.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const id = link.getAttribute('href').slice(1);
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+
+    navLinks.forEach(l => l.classList.remove('active'));
+    link.classList.add('active');
+  });
+});
+    
+
+  </script>
+
+
+
+</body>
+
+</html>
+
+
