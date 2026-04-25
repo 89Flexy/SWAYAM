@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Abhi-89</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Swayam King</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
@@ -600,10 +600,38 @@ body {
     <!-- NAME (VISIBLE ON ALL DEVICES) -->
        <div class="hero-name"> 👑</div>
     <div class="hero-name"> Swayam Chavan</div>
+<button class="music-btn" onclick="playMusic()">
+  ▶ Click Here
+</button>
 
+<audio id="bgMusic" src="YOUR_MUSIC_LINK.mp3"></audio>
 
     </section>
+    <script>
+        function playMusic(){
+  let audio = document.getElementById("bgMusic");
+  audio.play();
+}
+    </script>
   <style>
+  .music-btn{
+  margin-top:15px;
+  padding:10px 20px;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+
+  background: linear-gradient(90deg,#ff2e2e,#ff6b6b);
+  color:white;
+  font-weight:bold;
+
+  box-shadow:0 10px 25px rgba(255,46,46,0.3);
+  transition:0.3s;
+}
+
+.music-btn:hover{
+  transform:scale(1.05);
+}
   .hero-name {
   font-size: 25px;
   opacity: 0.8;
@@ -650,8 +678,199 @@ body {
     <h3>Leader</h3>
     <p>Born to lead, not follow</p>
   </div>
+  <div class="quiz-container">
+<h3>Special Gift 🎁🔑 Password Quiz</h3>
+<br>
+<br>
+<div class="q">
+  <p>1. Swayam ka mood kaisa rehta hai?</p>
+  
+  <div class="options">
+    <button onclick="check(this,'Angry','q1')">Angry 😡</button>
+    <button onclick="check(this,'Chill','q1')">Chill 😎</button>
+  </div>
 </div>
+<div class="q">
+  <p>2. You like most?</p>
+  <div class="options">
+    <button onclick="check(this,'Abhi','q3')">Abhi</button>
+    <button onclick="check(this,'Sai','q3')">Sai</button>
+  </div>
+</div>
+<div class="q">
+  <p>3. Your birthday date?</p>
+  <div class="options">
+    <button onclick="check(this,'29May','q2')">29 May</button>
+    <button onclick="check(this,'29Apr','q2')">29 Apr</button>
+  </div>
+</div>
+
+
+<div class="q">
+  <p>4. Swayam gandi cheeze dekta hai?</p>
+  <div class="options">
+    <button onclick="check(this,'Yes','q4')">Yes</button>
+    <button onclick="check(this,'No','q4')">No</button>
+  </div>
+</div>
+
+<button class="submit" onclick="finalCheck()">Submit</button>
+
+<div id="result"></div>
+
+</div>
+</div>
+<script>
+ let answers = {
+  q1: "Chill",
+  q2: "29Apr",
+  q3: "Abhi",
+  q4: "Yes"
+};
+
+function check(btn, val, q){
+  let parent = btn.parentElement;
+  let buttons = parent.querySelectorAll("button");
+
+  buttons.forEach(b => b.classList.remove("correct","wrong"));
+
+  if(val === answers[q]){
+    btn.classList.add("correct");
+  } else {
+    btn.classList.add("wrong");
+  }
+}
+
+function finalCheck(){
+  let score = 0;
+
+  document.querySelectorAll(".q").forEach((qBlock, i)=>{
+    let qName = "q" + (i+1);
+    let selected = qBlock.querySelector(".correct");
+    if(selected) score++;
+  });
+
+  if(score === 4){
+    document.getElementById("result").innerText = "🔓 Password: 1234 😂";
+  } else {
+    document.getElementById("result").innerText = "❌ Try again";
+  }
+}
+</script>
+
+</div>
+</div>
+
   <style>
+  body{
+  background:#0b1220;
+  font-family:Arial;
+  color:white;
+  display:flex;
+  justify-content:center;
+  padding:40px;
+}
+
+.quiz-container{
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+  border:1px solid rgba(255,255,255,0.1);
+  padding:25px;
+  border-radius:20px;
+  width:340px;
+  text-align:center;
+  box-shadow:0 0 20px rgba(0,0,0,0.5);
+}
+
+.q{
+  margin-bottom:18px;
+}
+
+.q p{
+  font-size:16px;
+  margin-bottom:10px;
+  text-align:center;
+}
+
+.options{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+}
+
+.options button{
+  padding:10px 14px;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+
+  background: rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.2);
+  color:white;
+
+  backdrop-filter: blur(10px);
+  transition:0.3s;
+}
+
+.options button:hover{
+  transform:scale(1.05);
+}
+
+/* correct answer */
+.correct{
+  background: rgba(0,255,0,0.25) !important;
+  border:1px solid lime !important;
+  color:#00ff66;
+}
+
+/* wrong answer */
+.wrong{
+  background: rgba(255,0,0,0.25) !important;
+  border:1px solid red !important;
+  color:#ff4d4d;
+}
+
+#result{
+  margin-top:15px;
+  font-size:20px;
+  color:#4fd1c5;
+  font-weight:bold;
+}
+
+.submit{
+  margin-top:15px;
+  padding:10px 18px;
+  border:none;
+  border-radius:12px;
+  background:#4fd1c5;
+  color:black;
+  font-weight:bold;
+  cursor:pointer;
+}
+  p{
+  font-size:18px;
+  margin-top:20px;
+}
+
+label{
+  display:block;
+  background:#1c2a44;
+  margin:5px auto;
+  padding:10px;
+  width:200px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+label:hover{
+  background:#2b3f66;
+  transform:scale(1.03);
+}
+
+input{
+  margin-right:10px;
+}
   .qualities {
   display: flex;
   justify-content: center;
@@ -747,7 +966,10 @@ body {
   transition: max-height 0.5s ease, opacity 0.4s ease;
 
 }
-
+.slide {
+  border: 3px solid #ff2e2e;
+  border-radius: 12px;
+}
   </style>
   <br>
 <section class="special-msg">
@@ -764,14 +986,194 @@ body {
 
   </div>
 </section>
+<div class="gift-section">
+  <button id="giftBtn">🎁 Special Gift</button>
+
+  <!-- PASSWORD BOX -->
+  <div id="passwordBox" class="password-box">
+    <h3>Enter Secret Code 🔐</h3>
+    <input type="password" id="giftPassword" placeholder="Enter password...">
+    <button onclick="checkPassword()">Unlock</button>
+  </div>
+
+  <!-- HIDDEN GALLERY -->
+<div id="giftGallery" class="gift-gallery">
+
+  <div class="slider-container">
+    <button class="nav-btn prev" onclick="prevSlide()">❮</button>
+
+    <div class="slider">
+      <img src="https://i.ibb.co/PG10yHw6/file-00000000c8807208a1323e8075084ae7.png" class="slide active">
+      <img src="https://i.ibb.co/ns2q4Y16/1777106135964.png" class="slide">
+      <img src="https://i.ibb.co/LhRB7sK2/file-000000007150720888b864dafedf0165.png" class="slide">
+      <img src="https://i.ibb.co/W4r8jGwM/file-0000000049f8720883c41b4329219ca4.png" class="slide">
+    </div>
+
+    <button class="nav-btn next" onclick="nextSlide()">❯</button>
+  </div>
+
+  <!-- TEXT -->
+  <div class="gift-text">
+    Looking Good hnnn🙄🫣❤️
+  </div>
+
+</div>
+<br>
+<br>
+<br>
+<br>
 <style>
-    
-    .special-msg {
+/* container fix */
+.slider-container {
+  position: relative;
   display: flex;
   justify-content: center;
-  margin-top: 60px;
+  align-items: center;
 }
 
+/* buttons overlay */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* TEXT PERFECT CENTER */
+.gift-text {
+  margin-top: 15px;
+  text-align: center;
+  width: 100%;
+}
+.slider {
+  width: 100%;
+  max-width: 300px;
+}
+
+.gift-text {
+  max-width: 300px;
+}
+.slide {
+  border: 2px solid #ff2e2e;
+  border-radius: 14px;
+  box-shadow: 0 0 15px rgba(255,46,46,0.6),
+              0 0 30px rgba(255,100,100,0.4);
+  transition: 0.3s;
+}
+
+.slide:hover {
+  box-shadow: 0 0 25px rgba(255,46,46,1),
+              0 0 60px rgba(255,100,100,0.6);
+}
+    .gift-section {
+  text-align: center;
+  margin-top: 50px;
+}
+.gift-gallery {
+  display: flex;
+  flex-direction: column; /* 🔥 IMPORTANT */
+  align-items: center;    /* center everything */
+}
+/* BUTTON */
+#giftBtn {
+  padding: 12px 25px;
+  border-radius: 30px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  background: linear-gradient(90deg,#ff2e2e,#ff6b6b);
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(255,46,46,0.3);
+  transition: 0.3s;
+}
+#giftBtn:hover {
+  transform: scale(1.1);
+}
+
+/* PASSWORD BOX */
+.password-box {
+  margin-top: 20px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.password-box input {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  width: 200px;
+}
+
+.password-box button {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: none;
+  background: #ff2e2e;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* GALLERY */
+.gift-gallery {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+/* SLIDER BOX */
+.slider {
+  width: 220px;
+  height: 390px; /* 9:16 ratio */
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+/* IMAGES */
+.slide {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  object-fit: contain; /* safety */
+  
+  opacity: 0;
+  transition: 0.5s ease;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+/* BUTTONS */
+.nav-btn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  font-size: 24px;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.nav-btn:hover {
+  background: #ff2e2e;
+}
 .msg-box {
   max-width: 700px;
   padding: 30px;
@@ -811,12 +1213,55 @@ body {
   background: linear-gradient(90deg,#ff2e2e,#ff6b6b);
   -webkit-background-clip: text;
   -webkit
+  .slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* ✅ change this */
+  background: #000; /* black bars for empty space */
+}
 </style>
     
   </main>
 
   <script>
-      
+      const giftBtn = document.getElementById("giftBtn");
+const passwordBox = document.getElementById("passwordBox");
+const gallery = document.getElementById("giftGallery");
+
+giftBtn.addEventListener("click", () => {
+  passwordBox.style.display = "flex";
+});
+
+function checkPassword() {
+  const pass = document.getElementById("giftPassword").value;
+
+  if(pass === "1234") { // 👈 yaha apna secret password daal
+    passwordBox.style.display = "none";
+    gallery.style.display = "flex";
+  } else {
+    alert("Wrong Password ❌");
+  }
+}
+ let current = 0;
+const slides = document.querySelectorAll(".slide");
+
+function showSlide(index) {
+  slides.forEach(s => s.classList.remove("active"));
+  slides[index].classList.add("active");
+}
+
+function nextSlide() {
+  current = (current + 1) % slides.length;
+  showSlide(current);
+}
+
+function prevSlide() {
+  current = (current - 1 + slides.length) % slides.length;
+  showSlide(current);
+}  
+   
+   
     // Reveal animation logic
     const observer=new IntersectionObserver(entries=>{
       entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("show")}})
