@@ -1022,23 +1022,26 @@ input{
 
     <button class="nav-btn next" onclick="nextSlide()">❯</button>
   </div>
-<audio id="giftSound" src="https://raw.githubusercontent.com/89Flexy/SWAYAM/56af3ec1b251567321ced3cc99a2e29f4072a976/ahh-sound-effect-128-ytshorts.savetube.me.mp3"></audio>
+<audio id="giftSound" preload="auto">
+  <source src="https://raw.githubusercontent.com/89Flexy/SWAYAM/56af3ec1b251567321ced3cc99a2e29f4072a976/ahh-sound-effect-128-ytshorts.savetube.me.mp3" type="audio/mpeg">
+</audio>
 <script>
-    function checkPassword() {
-  const pass = document.getElementById("giftPassword").value;
+    giftBtn.addEventListener("click", () => {
+  passwordBox.style.display = "flex";
 
-  if(pass === "1234") {
-    passwordBox.style.display = "none";
-    gallery.style.display = "flex";
+  let sound = document.getElementById("giftSound");
 
-    // 🎉 PLAY AUDIO ON UNLOCK
-    let sound = document.getElementById("giftSound");
-    sound.play();
+  sound.currentTime = 0;
+  sound.volume = 1;
 
-  } else {
-    alert("Wrong Password ❌");
+  let playPromise = sound.play();
+
+  if (playPromise !== undefined) {
+    playPromise.catch(err => {
+      console.log("Audio blocked:", err);
+    });
   }
-}
+});
 </script>
   <!-- TEXT -->
   <div class="gift-text">
